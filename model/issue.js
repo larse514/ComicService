@@ -18,7 +18,9 @@ Issue.prototype.findByQuery = function(key, param, offsetNum, next){
     client.getIssues(query, offset, function(err, result){
         //if the rest call returned an error, throw it 
         if(err) throw err
-        Issue.prototype.data = Issue.prototype.sanitize(result)        
+        //grab results and make sure we only have the data we want
+        Issue.prototype.data = Issue.prototype.sanitize(result)
+        //now pass it back
         next(Issue.prototype.data)
 
     })

@@ -20,7 +20,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+//need to add headers to make http calls from chrome
+app.all('/*', function(req, res, next){
+  console.log('here')
+  //Headers
+  res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  //set custom headers
+  if(req.method == 'OPTIONS'){
+    res.status(200).end();
+  } else {
+    next();
+  }
+});
 app.use('/', routes);
 
 // catch 404 and forward to error handler

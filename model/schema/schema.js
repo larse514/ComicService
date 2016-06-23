@@ -4,6 +4,7 @@
 //schema.js
 schemas = {
     offset : null,
+    next_offset: null,
     number_of_total_results: null,    
     results:[{
         id: null,
