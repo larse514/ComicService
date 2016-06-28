@@ -4,6 +4,7 @@
 var _ = require('lodash');
 var schemas = require('./schema/schema.js');
 var client = require('../client/RestClient')
+var config = require('config').get('COMIC_API_PARAMS');
 
 //constructor
 var Issue =  function(data) {
@@ -15,14 +16,12 @@ Issue.prototype.findByQuery = function(key, param, offsetNum, next){
     var query = key + ":" + param;
     var offset = "&offset=" + offsetNum
     //hard coded values  for now
-    client.getIssues(query, offset, function(err, result){
+    client.getIssues(query, offset, config.HOST, function(err, result){
         //if the rest call returned an error, throw it 
-        if(err) throw err
+        if(err) next(err, null)
         //grab results and make sure we only have the data we want
-        Issue.prototype.data = Issue.prototype.sanitize(result)
         //now pass it back
-        next(Issue.prototype.data)
-
+        next(null,new Issue(result))
     })
 };
 

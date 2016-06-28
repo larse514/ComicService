@@ -10,8 +10,8 @@ var issues = {
     	var offset = req.query.offset
     	var key = req.query.key
     	var param = req.query.param
-        new Issue().findByQuery(key, param, offset,function(issues){
-        	var issues = new Issue(issues)
+        Issue.prototype.findByQuery(key, param, offset,function(err, issues){
+        	if(err) throw err
             //now we need to set the next offset
             var next_offset = getOffsetValue(issues)
             issues.set('next_offset', next_offset)
@@ -26,12 +26,9 @@ function getOffsetValue(issues){
     var current_offset = issues.get('offset');
     //subtract 1 because technically the last offset is nothing (starts at 0)
     var num_results = issues.get('number_of_total_results') - 1
-    console.log(current_offset)
-    console.log(num_results)
     //make sure these are good
     //now add the configured max limit to be returned
     var new_offset = issues.get('offset') + config.LIMIT
-        console.log(new_offset)
 
     //check to make sure new val isn't greater than total number
     if(new_offset > num_results){
@@ -39,7 +36,6 @@ function getOffsetValue(issues){
         new_offset = num_results;
     }
     //set the new_offset value
-                console.log(new_offset)
 
     return new_offset;
     
