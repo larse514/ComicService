@@ -5,7 +5,7 @@ var constants = require('../util/constants');
 var client = { 
     getIssues : function (query, offset, host, next) {
         var path1 = '/api/issues/?api_key=' + config.API_KEY + '&format=json&field_list=' + config.FIELD_LIST + 
-                    '&filter=' + query + offset + '&limit=' + config.LIMIT;
+                    '&filter=' + query + offset + '&limit=' + config.LIMIT + '&sort=cover_date:desc';
         http.get({
             host: host,
             path: path1,
