@@ -18,7 +18,7 @@ describe('RestClient Test', function () {
         var query = "name" + ":" + "batman";
         var offset = "&offset=" + 0
         client.getIssues(query, offset, 'www.comicvine.gamespot.com', function(err, issues){
-            assert(issues.results.length == 10)
+            assert(issues.results.length == 3)
             done()
 
         })
