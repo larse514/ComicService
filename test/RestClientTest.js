@@ -8,7 +8,7 @@ describe('RestClient Test', function () {
     it('Error should be null', function (done) {
         var query = "name" + ":" + "batman";
         var offset = "&offset=" + 0
-        client.getIssues(query, offset, 'www.comicvine.gamespot.com',function(err, issues){
+        client.getIssues(query, offset,function(err, issues){
             assert(err == null)
             done()
         })
@@ -17,22 +17,13 @@ describe('RestClient Test', function () {
     it('Results contains configured about of results (current config 10) ', function (done) {
         var query = "name" + ":" + "batman";
         var offset = "&offset=" + 0
-        client.getIssues(query, offset, 'www.comicvine.gamespot.com', function(err, issues){
+        client.getIssues(query, offset, function(err, issues){
             assert(issues.results.length == 3)
             done()
 
         })
     });
 
-    //todo-figure out how to mirror this
-   it('bad request should populate error object ', function (done) {
-        var query = "nameasdfasdf" + ":" + "hguyfu";
-        var offset = "&offset=" + 0
-        client.getIssues(query, offset, 'www.comicvine.badhost.com', function(err, issues){
-            assert(err != null)
-            done()
+    //todo-add negative tests when i find one
 
-        })
-    });
-    
   });

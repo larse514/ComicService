@@ -6,7 +6,6 @@ var config = require('config').get('COMIC_API_PARAMS');
 
 var issues = {
     findByQuery: function(req, res){
-    	var test = req.query
     	var offset = req.query.offset
     	var key = req.query.key
     	var param = req.query.param

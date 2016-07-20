@@ -8,6 +8,11 @@ var constants = {
 			json_callback : 103,
 			Filter_Error : 104
 			 
+		},
+	REDIS_CACHE_RESPONSE : 
+		{
+			OK:200,
+			CREATED: 202 
 		}
 
 }

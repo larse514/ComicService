@@ -3,11 +3,12 @@ var config = require('config').get('COMIC_API_PARAMS');
 var constants = require('../util/constants');
 
 var client = { 
-    getIssues : function (query, offset, host, next) {
+    //why am i passing in host?
+    getIssues : function (query, offset, next) {
         var path1 = '/api/issues/?api_key=' + config.API_KEY + '&format=json&field_list=' + config.FIELD_LIST + 
                     '&filter=' + query + offset + '&limit=' + config.LIMIT + '&sort=cover_date:desc';
         http.get({
-            host: host,
+            host: config.HOST,
             path: path1,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

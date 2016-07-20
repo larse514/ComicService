@@ -3,7 +3,13 @@
 		"LIMIT" : 3,
 		"FIELD_LIST": "cover_date,description,id,image,issue_number,name,volume",
 		"API_KEY" : "8ff93319a99802e5d8e7c9d51f7e7e09b0582a01",
-		"HOST" : "www.comicvine.gamespot.com"
+		"HOST" : "www.comicvine.gamespot.com"		
+	},
+	"REDIS_CACHE_PARAMS" : {
+		"HOST" : "http://ec2-50-112-49-202.us-west-2.compute.amazonaws.com",
+		"PORT" : 8080,
+		"SET_URL" : "/setCache"
 	}
+
 
 }

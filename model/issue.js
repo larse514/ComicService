@@ -4,6 +4,7 @@
 var _ = require('lodash');
 var schemas = require('./schema/schema.js');
 var client = require('../client/RestClient')
+var cache = require('../client/CacheClient')
 var config = require('config').get('COMIC_API_PARAMS');
 
 //constructor
@@ -13,16 +14,33 @@ var Issue =  function(data) {
 
 Issue.prototype.findByQuery = function(key, param, offsetNum, next){
     // get all the users
-    var query = key + ":" + param;
-    var offset = "&offset=" + offsetNum
-    //hard coded values  for now
-    client.getIssues(query, offset, config.HOST, function(err, result){
-        //if the rest call returned an error, throw it 
-        if(err) next(err, null)
-        //grab results and make sure we only have the data we want
-        //now pass it back
-        next(null,new Issue(result))
+    var query = key + ":" + param,
+        offset = "&offset=" + offsetNum
+        //todo is this it?
+        key = query + offset
+    //check in the cache first
+    cache.getValue(key, function(error, body){
+        //if we got a successful response, return it
+        if(body){
+            return next(null, new Issue(body))
+        }
+        //otherwise we need to go to the comicvine api
+        else{
+            client.getIssues(query, offset, function(err, result){
+                //if the rest call returned an error, throw it 
+                if(err) return next(err, null)
+                //grab results and make sure we only have the data we want
+                var issue = new Issue(result);
+                //now we should add it to the cache, but we can do it asynchonously so
+                //make sure we return
+                //todo-is this the right way to perform the async call?
+                cache.addToCache(key, issue, function(err, body){})
+                //just return
+                return next(null,issue)
+            })
+        }
     })
+ 
 };
 
 //helper methods
