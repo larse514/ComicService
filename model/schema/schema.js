@@ -5,7 +5,8 @@
 schemas = {
     offset : null,
     next_offset: null,
-    number_of_total_results: null,    
+    number_of_total_results: null,
+    was_cached:null,    
     results:[{
         id: null,
         cover_date: null, 

@@ -9,8 +9,8 @@ var config = require('config').get('COMIC_API_PARAMS');
 var logger = require("../log/logger");
 
 //constructor
-var Issue =  function(data) {
-    this.data = this.sanitize(data);
+var Issue =  function(data, wasCached) {
+    this.data = this.sanitize(data, wasCached);
 };
 
 Issue.prototype.findByQuery = function(key, param, offsetNum, next){
@@ -24,7 +24,7 @@ Issue.prototype.findByQuery = function(key, param, offsetNum, next){
         //if we got a successful response, return it
         if(body){
             logger.log('info', 'cache hit %j', body, {});
-            return next(null, new Issue(body))
+            return next(null, new Issue(body, true))
         }
         //otherwise we need to go to the comicvine api
         else{
@@ -32,7 +32,7 @@ Issue.prototype.findByQuery = function(key, param, offsetNum, next){
                 //if the rest call returned an error, throw it 
                 if(err) return next(err, null)
                 //grab results and make sure we only have the data we want
-                var issue = new Issue(result);
+                var issue = new Issue(result, false);
                 //now we should add it to the cache, but we can do it asynchonously so
                 //make sure we return
                 //todo-is this the right way to perform the async call?
@@ -46,7 +46,7 @@ Issue.prototype.findByQuery = function(key, param, offsetNum, next){
 };
 
 //helper methods
-Issue.prototype.sanitize = function (data){
+Issue.prototype.sanitize = function (data, wasCached){
     //if data is invalid set to empty object so we don't pull
     //bad errors, seems smrt
     data = data || {};
@@ -56,7 +56,10 @@ Issue.prototype.sanitize = function (data){
     //these are using lodash functions (more info found here: https://lodash.com/)
     //_.defaults will add any variables, from schema, that data doesn't contain
     //_.keys gets all the keys from schema and _.pick only keeps these values
-    return _.pick(_.defaults(data, schema), _.keys(schema));
+    data = _.pick(_.defaults(data, schema), _.keys(schema));
+    data.was_cached = wasCached;
+    return data;
+    //data.was_cached = wasCached;
 };
 
 //define data for easy saving into backend
