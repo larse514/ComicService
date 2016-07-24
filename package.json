@@ -1,9 +1,10 @@
 {
-  "name": "ComicService",
+  "name": "comicservice",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "mocha --reporter spec test"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -12,10 +13,10 @@
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "follow-redirects": "^0.2.0",
-    "jade": "~1.11.0",
     "lodash": "^4.13.1",
     "mocha": "^2.5.3",
     "morgan": "~1.6.1",
+    "newman": "^2.1.2",
     "request": "^2.73.0",
     "rewire": "^2.5.1",
     "serve-favicon": "~2.3.0",
@@ -23,6 +24,27 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0"
-  }
+    "chai": "^3.5.0",
+	 "mocha": "^1.17.1"
+  },
+  "description": "Service to integrate with 3rd part comic book API's",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larse514/ComicService.git"
+  },
+  "keywords": [
+    "Comic",
+    "book",
+    "app"
+  ],
+  "author": "Vernon Solutions",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/larse514/ComicService/issues"
+  },
+  "homepage": "https://github.com/larse514/ComicService#readme"
 }
