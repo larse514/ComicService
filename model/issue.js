@@ -6,6 +6,7 @@ var schemas = require('./schema/schema.js');
 var client = require('../client/RestClient')
 var cache = require('../client/CacheClient')
 var config = require('config').get('COMIC_API_PARAMS');
+var logger = require("../log/logger");
 
 //constructor
 var Issue =  function(data) {
@@ -22,6 +23,7 @@ Issue.prototype.findByQuery = function(key, param, offsetNum, next){
     cache.getValue(key, function(error, body){
         //if we got a successful response, return it
         if(body){
+            logger.log('info', 'cache hit %j', body, {});
             return next(null, new Issue(body))
         }
         //otherwise we need to go to the comicvine api
@@ -34,7 +36,7 @@ Issue.prototype.findByQuery = function(key, param, offsetNum, next){
                 //now we should add it to the cache, but we can do it asynchonously so
                 //make sure we return
                 //todo-is this the right way to perform the async call?
-                cache.addToCache(key, issue, function(err, body){})
+                cache.addToCache(key, issue.data, function(err, body){})
                 //just return
                 return next(null,issue)
             })

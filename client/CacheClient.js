@@ -3,18 +3,19 @@ var config = require('config').get('REDIS_CACHE_PARAMS');
 var constants = require('../util/constants');
 var handler = require('../handler/httpResponseHandler');
 var request = require('request');
+var logger = require("../log/logger");
+var crypto = require('crypto');
 
 var client = {
 	getValue : function (key, next){
 		//create path for request
-		var path = "getCache?key=" + key;
+		var hash = crypto.createHash('md5').update(key).digest('hex');
+		var path = "/getCache?key=" + hash;
 		//make get request call
         http.get({
             host: config.HOST,
-            path: path,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'User-Agent': 'POC' }
+            port: config.PORT,
+            path: path
         }, function(response) {
             // Continuously update stream with data
             var body = '';            
@@ -23,21 +24,29 @@ var client = {
             });
             response.on('end', function() {
             	//is this right?
-            	var status = response.getHeader('status');
-                return handler.handleGetResponse(status, body, next);
+            	var status = response.statusCode;
+                return handler.handleGetResponse(null, status, body, next);
             });
-        });
+        }).on('error', function (err) {
+    		logger.log('error', 'Error in http request %j', err, {});
+    		return handler.handleGetResponse(err, null, null, next)
+		});
 	},
 	addToCache : function (key, value, next){
 		//set path, build url and body
-		var path = '',
-			url = config.HOST + ":" + config.PORT + config.SET_URL
-			body = {key : value}
+		var hash = crypto.createHash('md5').update(key).digest('hex');
+		logger.info("adding to cache, key: " + hash)
+		var options = {
+		  	url: config.PROTOCOL + config.HOST + ":" + config.PORT + config.SET_URL,
+			headers : {
+                'Content-Type': 'application/json'
+            },
+		    json : {key : hash, value:JSON.stringify(value)}
+		};
 		request.post(
-		    url,
-		    body,
+			options,
 		    function (error, response, body) {
-		        return handler.handlePostResponse(error, response, body, next);
+		        return handler.handlePostReponse(error, response, body, next);
 		    }
 		);
 	}

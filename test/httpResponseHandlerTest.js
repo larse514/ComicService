@@ -11,7 +11,7 @@ describe('Redis cache tests handleGetResponse', function () {
 	    var errorBody = {body:"Error"},
 	        badJson = "{bad:}"
 
-        handler.handleGetResponse(200, badJson, function(error, reply){
+        handler.handleGetResponse(null, 200, badJson, function(error, reply){
     		assert(error != null)
 
 			done() 
@@ -19,12 +19,37 @@ describe('Redis cache tests handleGetResponse', function () {
 
 	}))
 	it('bad response status response error should be returned', sinon.test(function (done) {
-	    var errorBody = {error:"Error"},
+	    var errorBody = {message: "badRequest"},
 	        json = "{error:2}"
 
-        handler.handleGetResponse(404, JSON.stringify(errorBody), function(error, reply){
-    		assert(error.message === errorBody.error)
+        handler.handleGetResponse(null, 404, JSON.stringify(errorBody), function(error, reply){
+        	console.log(error.message)
+        	console.log(errorBody)
+    		assert(error.message.error === errorBody.message.error)
 
+			done() 
+        })
+
+	}))
+	it('if http get throws an error (e.g. 404) it returns error code', sinon.test(function (done) {
+	    var error = {error:"Error"},
+	        json = "{error:2}"
+
+        handler.handleGetResponse(error, null, null, function(error, reply){
+    		assert(error.message === "Error calling RedisCache")
+
+			done() 
+        })
+
+	}))
+	it('Good request', sinon.test(function (done) {
+		var data = {data:"good"};
+	    var body = {value: data},
+	        json = "{error:2}"
+
+        handler.handleGetResponse(null, 200, JSON.stringify(body), function(error, reply){
+    		assert(!error)
+			assert(reply.data === data.data)
 			done() 
         })
 
@@ -82,12 +107,12 @@ describe('Redis cache tests handlePostResponse', function () {
 	}))
 	it('we get a 202 code, and return the correct body', sinon.test(function (done) {
 	    var errorBody = {error:"Error"},
-	        goodJson = {test:1}
+	        goodJson = {value:1}
 	        response = {statusCode:202}
 
        	handler.handlePostReponse(null, response, JSON.stringify(goodJson), function(error, reply){
     		assert(!error)
-    		assert(reply.test ===1)
+    		assert(reply===1)
 
 			done() 
         })
