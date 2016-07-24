@@ -24,7 +24,7 @@ var httpHelper = {
 			return next(null, body.value)
 		}
 		//otherwise we have an error
-		logger.log('error', 'Error calling Redis Cache %j', body, {});
+		logger.log('error', 'Error calling GET method %j', body, {});
 		return next(new Error(body.message), null)
 			
 	},
@@ -33,7 +33,7 @@ var httpHelper = {
         	logger.error('POST error: ' + err)
         	return next(err, null)
         }
-        logger.info("Setting Redis Cache returned with code: " + response.statusCode)
+        logger.info("POST method returned with code: " + response.statusCode)
         if(response.statusCode === constants.REDIS_CACHE_RESPONSE.CREATED){
 			try{
 		        //try and parse the response bodyx

@@ -10,6 +10,7 @@ var client = {
 		//create path for request
 		var path = "/getCache?key=" + key;
 		//make get request call
+		console.log(path)
         http.get({
             host: config.HOST,
             port: config.PORT,

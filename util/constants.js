@@ -12,7 +12,7 @@ var constants = {
 	REDIS_CACHE_RESPONSE : 
 		{
 			OK:200,
-			CREATED: 202 
+			CREATED: 201 
 		}
 
 }

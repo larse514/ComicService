@@ -70,9 +70,9 @@ describe('Redis cache tests handlePostResponse', function () {
         })
 
 	}))
-	it('error object is populated with 202', sinon.test(function (done) {
+	it('error object is populated with 201', sinon.test(function (done) {
    	    var errorBody = {error:"Error"},
-	        response = {statusCode:202}
+	        response = {statusCode:201}
 
        	handler.handlePostReponse(errorBody, response, null, function(error, reply){
     		assert(error.message === errorBody.message)
@@ -93,10 +93,10 @@ describe('Redis cache tests handlePostResponse', function () {
         })
 
 	}))
-	it('we get a 202 code, but bad json in response object', sinon.test(function (done) {
+	it('we get a 201 code, but bad json in response object', sinon.test(function (done) {
 	    var errorBody = {error:"Error"},
 	        badJson = "{bad:}"
-	        response = {statusCode:202}
+	        response = {statusCode:201}
 
        	handler.handlePostReponse(null, response, badJson, function(error, reply){
     		assert(error.message === "Malformed JSON response")
@@ -105,10 +105,10 @@ describe('Redis cache tests handlePostResponse', function () {
         })
 
 	}))
-	it('we get a 202 code, and return the correct body', sinon.test(function (done) {
+	it('we get a 201 code, and return the correct body', sinon.test(function (done) {
 	    var errorBody = {error:"Error"},
 	        goodJson = {value:1}
-	        response = {statusCode:202}
+	        response = {statusCode:201}
 
        	handler.handlePostReponse(null, response, JSON.stringify(goodJson), function(error, reply){
     		assert(!error)
