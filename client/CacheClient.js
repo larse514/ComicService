@@ -4,13 +4,11 @@ var constants = require('../util/constants');
 var handler = require('../handler/httpResponseHandler');
 var request = require('request');
 var logger = require("../log/logger");
-var crypto = require('crypto');
 
 var client = {
 	getValue : function (key, next){
 		//create path for request
-		var hash = crypto.createHash('md5').update(key).digest('hex');
-		var path = "/getCache?key=" + hash;
+		var path = "/getCache?key=" + key;
 		//make get request call
         http.get({
             host: config.HOST,
@@ -34,14 +32,13 @@ var client = {
 	},
 	addToCache : function (key, value, next){
 		//set path, build url and body
-		var hash = crypto.createHash('md5').update(key).digest('hex');
-		logger.info("adding to cache, key: " + hash)
+		logger.info("adding to cache, key: " + key)
 		var options = {
 		  	url: config.PROTOCOL + config.HOST + ":" + config.PORT + config.SET_URL,
 			headers : {
                 'Content-Type': 'application/json'
             },
-		    json : {key : hash, value:JSON.stringify(value)}
+		    json : {key : key, value:JSON.stringify(value)}
 		};
 		request.post(
 			options,
