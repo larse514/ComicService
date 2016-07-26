@@ -14,11 +14,12 @@ describe('RestClient Test', function () {
         })
     });
     
-    it('Results contains configured about of results (current config 10) ', function (done) {
+    it('Results contains amount passed in as limit ', function (done) {
         var query = "name" + ":" + "batman";
         var offset = "&offset=" + 0
-        client.getIssues(query, offset, 3,function(err, issues){
-            assert(issues.results.length == 3)
+        var limit = 5
+        client.getIssues(query, offset, limit,function(err, issues){
+            assert(issues.results.length == limit)
             done()
 
         })

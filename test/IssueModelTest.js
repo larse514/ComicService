@@ -81,7 +81,14 @@ describe('Redis cache tests getCache', function () {
             restClientMock = sinon.stub(),
             cacheMock = sinon.stub(),
             error = new Error("Error");
+            key = "key",
+            param="param",
+            offsetNum=0
 
+        var query = key + ":" + param,
+            offset = "&offset=" + offsetNum
+            //todo is this it?
+            key = query + offset
         cacheMock.getValue = this.stub().
         callsArgWith(1,error, null)
 
@@ -94,8 +101,8 @@ describe('Redis cache tests getCache', function () {
             'client': restClientMock,
             'cache' : cacheMock
         });
-        Issue.prototype.findByQuery("key", "param", 0, 3, nextStub)
-        assert(nextStub.called);
+        Issue.prototype.findByQuery(key, param, offsetNum, 3, nextStub)
+        assert(nextStub.calledWith());
         //make sure our next method was called withour error object that was returned
         assert(cacheMock.addToCache.called)
         done() 

@@ -15,6 +15,7 @@ var issues = {
             //now we need to set the next offset
             var next_offset = getOffsetValue(issues, limit)
             issues.set('next_offset', next_offset)
+            console.log(issues.get("results").length)
             res.json(issues);
         });
     }
@@ -28,8 +29,7 @@ function getOffsetValue(issues, limit){
     var num_results = issues.get('number_of_total_results') - 1
     //make sure these are good
     //now add the configured max limit to be returned
-    var new_offset = issues.get('offset') + limit
-
+    var new_offset = +issues.get('offset') + +limit
     //check to make sure new val isn't greater than total number
     if(new_offset > num_results){
         //if so, just set it as max

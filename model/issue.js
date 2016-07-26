@@ -18,10 +18,9 @@ Issue.prototype.findByQuery = function(key, param, offsetNum,limit, next){
     var query = key + ":" + param,
         offset = "&offset=" + offsetNum
         //todo is this it?
-        key = query + offset
+        cacheKey = query + offset + "&limit="+limit
     //check in the cache first
-    console.log(key)
-    cache.getValue(key, function(error, body){
+    cache.getValue(cacheKey, function(error, body){
         //if we got a successful response, return it
         if(body){
             logger.log('info', 'cache hit %j', body, {});
@@ -37,7 +36,8 @@ Issue.prototype.findByQuery = function(key, param, offsetNum,limit, next){
                 //now we should add it to the cache, but we can do it asynchonously so
                 //make sure we return
                 //todo-is this the right way to perform the async call?
-                cache.addToCache(query, issue.data, function(err, body){})
+                //need to hardcode this to add as key
+                cache.addToCache(cacheKey, issue.data, function(err, body){})
                 //just return
                 return next(null,issue)
             })
