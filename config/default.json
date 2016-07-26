@@ -1,6 +1,5 @@
 {
 	"COMIC_API_PARAMS" : {
-		"LIMIT" : 3,
 		"FIELD_LIST": "cover_date,description,id,image,issue_number,name,volume",
 		"API_KEY" : "8ff93319a99802e5d8e7c9d51f7e7e09b0582a01",
 		"HOST" : "www.comicvine.gamespot.com"		

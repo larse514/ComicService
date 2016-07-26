@@ -45,13 +45,13 @@ describe('Redis cache tests getCache', function () {
         callsArgWith(1,error, null)
 
         restClientMock.getIssues = this.stub().
-        callsArgWith(2, error, null)
+        callsArgWith(3, error, null)
 
         Issue.__set__({
             'client': restClientMock,
             'cache' : cacheMock
         });
-        Issue.prototype.findByQuery("key", "param", 0, nextStub)
+        Issue.prototype.findByQuery("key", "param", 0, 3, nextStub)
         assert(nextStub.called);
         //make sure our next method was called withour error object that was returned
         assert(nextStub.calledWith(error))
@@ -69,7 +69,7 @@ describe('Redis cache tests getCache', function () {
         Issue.__set__({
             'cache' : cacheMock
         });
-        Issue.prototype.findByQuery("key", "param", 0, nextStub)
+        Issue.prototype.findByQuery("key", "param", 0,3, nextStub)
         assert(nextStub.called);
         //make sure our next method was called withour error object that was returned
         assert(nextStub.calledWith(null, new Issue(sampleResponse, true)))
@@ -86,7 +86,7 @@ describe('Redis cache tests getCache', function () {
         callsArgWith(1,error, null)
 
         restClientMock.getIssues = this.stub().
-        callsArgWith(2, null, {body:1})
+        callsArgWith(3, null, {body:1})
 
        cacheMock.addToCache = sinon.spy()
 
@@ -94,7 +94,7 @@ describe('Redis cache tests getCache', function () {
             'client': restClientMock,
             'cache' : cacheMock
         });
-        Issue.prototype.findByQuery("key", "param", 0, nextStub)
+        Issue.prototype.findByQuery("key", "param", 0, 3, nextStub)
         assert(nextStub.called);
         //make sure our next method was called withour error object that was returned
         assert(cacheMock.addToCache.called)
@@ -112,7 +112,7 @@ describe('Redis cache tests getCache', function () {
         callsArgWith(1,error, null)
 
         restClientMock.getIssues = this.stub().
-        callsArgWith(2, null, sampleResponse)
+        callsArgWith(3, null, sampleResponse)
 
        cacheMock.addToCache = sinon.spy()
 
@@ -120,7 +120,7 @@ describe('Redis cache tests getCache', function () {
             'client': restClientMock,
             'cache' : cacheMock
         });
-        Issue.prototype.findByQuery("key", "param", 0, nextStub)
+        Issue.prototype.findByQuery("key", "param", 0,3, nextStub)
         assert(nextStub.called);
         //make sure our next method was called withour error object that was returned
         assert(nextStub.calledWith(null, new Issue(sampleResponse, false)))

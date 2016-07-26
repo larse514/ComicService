@@ -13,7 +13,7 @@ var Issue =  function(data, wasCached) {
     this.data = this.sanitize(data, wasCached);
 };
 
-Issue.prototype.findByQuery = function(key, param, offsetNum, next){
+Issue.prototype.findByQuery = function(key, param, offsetNum,limit, next){
     // get all the users
     var query = key + ":" + param,
         offset = "&offset=" + offsetNum
@@ -29,7 +29,7 @@ Issue.prototype.findByQuery = function(key, param, offsetNum, next){
         }
         //otherwise we need to go to the comicvine api
         else{
-            client.getIssues(query, offset, function(err, result){
+            client.getIssues(query, offset, limit, function(err, result){
                 //if the rest call returned an error, throw it 
                 if(err) return next(err, null)
                 //grab results and make sure we only have the data we want

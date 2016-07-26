@@ -8,7 +8,7 @@ describe('RestClient Test', function () {
     it('Error should be null', function (done) {
         var query = "name" + ":" + "batman";
         var offset = "&offset=" + 0
-        client.getIssues(query, offset,function(err, issues){
+        client.getIssues(query, offset,3,function(err, issues){
             assert(err == null)
             done()
         })
@@ -17,7 +17,7 @@ describe('RestClient Test', function () {
     it('Results contains configured about of results (current config 10) ', function (done) {
         var query = "name" + ":" + "batman";
         var offset = "&offset=" + 0
-        client.getIssues(query, offset, function(err, issues){
+        client.getIssues(query, offset, 3,function(err, issues){
             assert(issues.results.length == 3)
             done()
 

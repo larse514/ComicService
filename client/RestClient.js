@@ -4,9 +4,9 @@ var constants = require('../util/constants');
 
 var client = { 
     //why am i passing in host?
-    getIssues : function (query, offset, next) {
+    getIssues : function (query, offset, limit, next) {
         var path1 = '/api/issues/?api_key=' + config.API_KEY + '&format=json&field_list=' + config.FIELD_LIST + 
-                    '&filter=' + query + offset + '&limit=' + config.LIMIT + '&sort=cover_date:desc';
+                    '&filter=' + query + offset + '&limit=' + limit + '&sort=cover_date:desc';
         http.get({
             host: config.HOST,
             path: path1,

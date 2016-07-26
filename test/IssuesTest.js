@@ -23,7 +23,7 @@ describe('Issues Service Tests', function () {
     it('error should be thrown', sinon.test(function (done) {
     	var error = new Error("Error");
 		issueModelMock.prototype.findByQuery = this.stub().
-		callsArgWith(3,error, null)
+		callsArgWith(4,error, null)
     	issues.__set__({
 	        'Issue': issueModelMock
 	    });
@@ -44,7 +44,7 @@ describe('Issues Service Tests', function () {
 						      {}]}
 		var issue = new Issue(response)
 		issueModelMock.prototype.findByQuery = this.stub().
-		callsArgWith(3,null, issue)
+		callsArgWith(4,null, issue)
 
     	issues.__set__({
 	        'Issue': issueModelMock
