@@ -83,9 +83,9 @@ describe('Redis cache tests getCache', function () {
             error = new Error("Error");
             key = "key",
             param="param",
-            offsetNum=0
-
-        var query = key + ":" + param,
+            offsetNum=0,
+            limit = 4
+            query = key + ":" + param,
             offset = "&offset=" + offsetNum
             //todo is this it?
             key = query + offset
@@ -101,7 +101,7 @@ describe('Redis cache tests getCache', function () {
             'client': restClientMock,
             'cache' : cacheMock
         });
-        Issue.prototype.findByQuery(key, param, offsetNum, 3, nextStub)
+        Issue.prototype.findByQuery(key, param, offsetNum, limit, nextStub)
         assert(nextStub.calledWith());
         //make sure our next method was called withour error object that was returned
         assert(cacheMock.addToCache.called)
