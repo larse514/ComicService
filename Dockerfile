@@ -1,4 +1,4 @@
-FROM centos:contos6
+FROM centos:centos6
 
 MAINTAINER andrew.larse514@gmail.com
 
