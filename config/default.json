@@ -5,7 +5,7 @@
 		"HOST" : "www.comicvine.gamespot.com"		
 	},
 	"REDIS_CACHE_PARAMS" : {
-		"HOST" : "ec2-50-112-49-202.us-west-2.compute.amazonaws.com",
+		"HOST" : "ec2-52-40-149-14.us-west-2.compute.amazonaws.com",
 		"PROTOCOL" : "http://",
 		"PORT" : 8080,
 		"SET_URL" : "/setCache"
