@@ -20,4 +20,4 @@ deployment:
 test:
   post:
     - docker run -d -p 8080:8080 --name comicservice 417615409974.dkr.ecr.us-west-2.amazonaws.com/motherboxx-images:latest; sleep 10
-    - curl --retry 10 --retry-delay 5 localhost:8080 | grep "{"title":"Health Check"}"
+    - curl --retry 10 --retry-delay 5 localhost:8080 | grep "hello world"
