@@ -4,7 +4,7 @@ machine:
 
 dependencies:
   post:
-    - docker build -t 417615409974.dkr.ecr.us-west-2.amazonaws.com/motherboxx-images:latest
+    - docker build -t 417615409974.dkr.ecr.us-west-2.amazonaws.com/motherboxx-images:latest .
 
 #deployment:
  # dockerhub:
