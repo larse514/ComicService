@@ -16,7 +16,7 @@ deployment:
   prod:
     branch: master
     commands:
-      - ./deploy.sh
+      - ./ci/deploy.sh
 test:
   post:
     - docker run -d -p 8080:8080 --name comicservice 417615409974.dkr.ecr.us-west-2.amazonaws.com/motherboxx-images:latest; sleep 10
