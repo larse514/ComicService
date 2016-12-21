@@ -60,7 +60,7 @@ make_task_def(){
 
 push_ecr_image(){
 	eval $(aws ecr get-login --region us-east-1)
-	docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/go-sample-webapp:$CIRCLE_SHA1
+	docker push 417615409974.dkr.ecr.us-west-2.amazonaws.com/motherboxx-images
 }
 
 register_definition() {
