@@ -5,6 +5,9 @@ var issues = require('../service/issues')
 router.get('/', function(req, res, next) {
   res.send('index', "hello world");
 });
+router.get('/healthCheck', function(req, res, next) {
+  res.send('index', "ok");
+});
 
 router.get('/issues',issues.findByQuery);
 
