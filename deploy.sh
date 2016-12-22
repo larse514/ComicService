@@ -59,7 +59,7 @@ make_task_def(){
 }
 
 push_ecr_image(){
-	eval $(aws ecr get-login --region us-east-1)
+	eval $(aws ecr get-login --region us-west-2)
 	docker push 417615409974.dkr.ecr.us-west-2.amazonaws.com/motherboxx-images
 }
 
