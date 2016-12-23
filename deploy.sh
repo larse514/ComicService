@@ -11,11 +11,11 @@ configure_aws_cli(){
 
 deploy_cluster() {
 
-    family="motherboxxservice"
+    family="mbservice"
 
     make_task_def
     register_definition
-    if [[ $(aws ecs update-service --cluster Motherboxx --service motherboxxservice --task-definition $revision | \
+    if [[ $(aws ecs update-service --cluster Motherboxx --service mbservice --task-definition $revision | \
                    $JQ '.service.taskDefinition') != $revision ]]; then
         echo "Error updating service."
         return 1
@@ -24,7 +24,7 @@ deploy_cluster() {
     # wait for older revisions to disappear
     # not really necessary, but nice for demos
     for attempt in {1..30}; do
-        if stale=$(aws ecs describe-services --cluster Motherboxx --services motherboxxservice | \
+        if stale=$(aws ecs describe-services --cluster Motherboxx --services mbservice | \
                        $JQ ".services[0].deployments | .[] | select(.taskDefinition != \"$revision\") | .taskDefinition"); then
             echo "Waiting for stale deployments:"
             echo "$stale"
