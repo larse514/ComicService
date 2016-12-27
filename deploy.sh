@@ -42,7 +42,7 @@ make_task_def(){
 	task_template='[
 		{
 			"name": "ComicServiceHttp",
-			"image": "%s.dkr.ecr.us-west-2.amazonaws.com/motherboxx-images:%s",
+			"image": "417615409974.dkr.ecr.us-west-2.amazonaws.com/motherboxx-images:latest",
 			"essential": true,
 			"memory": 200,
 			"cpu": 10,
