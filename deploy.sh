@@ -15,6 +15,7 @@ deploy_cluster() {
 
     make_task_def
     register_definition
+    echo "$revision"
     if [[ $(aws ecs update-service --cluster Motherboxx --service mbservice --task-definition $revision | \
                    $JQ '.service.taskDefinition') != $revision ]]; then
         echo "Error updating service."
@@ -65,6 +66,7 @@ push_ecr_image(){
 
 register_definition() {
 
+    echo "$task_def"
     if revision=$(aws ecs register-task-definition --container-definitions "$task_def" --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
     else
