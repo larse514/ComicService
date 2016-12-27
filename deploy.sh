@@ -11,7 +11,7 @@ configure_aws_cli(){
 
 deploy_cluster() {
 
-    family="mbservice"
+    family="ComicServiceHttp"
 
     make_task_def
     register_definition
