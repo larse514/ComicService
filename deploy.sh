@@ -41,7 +41,7 @@ deploy_cluster() {
 make_task_def(){
 	task_template='[
 		{
-			"name": "NewTask",
+			"name": "ComicServiceHttp",
 			"image": "%s.dkr.ecr.us-west-2.amazonaws.com/motherboxx-images:%s",
 			"essential": true,
 			"memory": 200,
@@ -49,7 +49,7 @@ make_task_def(){
 			"portMappings": [
 				{
 					"containerPort": 8080,
-					"hostPort": 8080
+					"hostPort": 80
 				}
 			]
 		}
