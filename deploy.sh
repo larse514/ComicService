@@ -41,7 +41,7 @@ deploy_cluster() {
 make_task_def(){
 	task_template='[
 		{
-			"name": "ComicServiceHttp",
+			"name": "NewTask",
 			"image": "%s.dkr.ecr.us-west-2.amazonaws.com/motherboxx-images:%s",
 			"essential": true,
 			"memory": 200,
