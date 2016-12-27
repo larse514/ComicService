@@ -55,7 +55,8 @@ make_task_def(){
 			]
 		}
 	]'
-	
+	echo "$task_template"
+    echo "$CIRCLE_SHA1"
 	task_def=$(printf "$task_template" $AWS_ACCOUNT_ID $CIRCLE_SHA1)
 }
 
