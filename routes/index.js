@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
   res.send('index', "hello world");
 });
 router.get('/healthCheck', function(req, res, next) {
-  res.send('index', "ok...not...again");
+  res.send('index', "trying aagain");
 });
 
 router.get('/issues',issues.findByQuery);
